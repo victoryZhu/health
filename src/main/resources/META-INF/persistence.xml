@@ -1,0 +1,39 @@
+<?xml version="1.0" encoding="GBK"?>
+<persistence version="1.0"
+	xmlns="http://java.sun.com/xml/ns/persistence" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+	xsi:schemaLocation="http://java.sun.com/xml/ns/persistence 
+	http://java.sun.com/xml/ns/persistence/persistence_1_0.xsd">
+	<!-- 为持久化单元指定名称，并通过transaction-type指定事务类型 transaction-type属性合法的属性值有JTA、RESOURCE_LOCAL两个 -->
+	<persistence-unit name="yh" transaction-type="RESOURCE_LOCAL">	    	
+	    <!-- <jta-data-source>java:jboss/xads/chpl</jta-data-source> -->
+	    
+	    <!-- 指定javax.persistence.spi.PersistenceProvider实现类 -->
+		<provider>org.hibernate.ejb.HibernatePersistence</provider>
+		<!-- 列出该应用需要访问的所有的Entity类, 也可以用 <mapping-file> 或<jar-file>元素来定义 --> 	
+		<class>com.yourhealth.common.domain.DictionaryItem</class>
+		<class>com.yourhealth.common.domain.DictionaryValue</class>
+		<class>com.yourhealth.deploy.domain.Category</class>
+		<class>com.yourhealth.deploy.domain.Module</class>
+		<class>com.yourhealth.deploy.domain.Function</class>
+		<class>com.yourhealth.orgnization.domain.Administrator</class>
+		<class>com.yourhealth.orgnization.domain.Bmxx</class>
+		<class>com.yourhealth.orgnization.domain.Ryxx</class>
+		<class>com.yourhealth.security.domain.Role</class>
+		<class>com.yourhealth.security.domain.RoleFunction</class>
+		<class>com.yourhealth.security.domain.RoleRyxx</class>
+		<class>com.yourhealth.security.domain.RyxxFunction</class>
+		<class>com.yourhealth.security.domain.SysLog</class>
+		
+		<!-- properties元素用于为特定JPA实现包配置属性 -->
+		<!-- 下面列举的是Hibernate JPA实现中可以配置的部分属性 -->		
+		<properties>
+			<!-- 设置是否格式化SQL语句 -->
+			<property name="hibernate.format_sql" value="true" />
+			<!-- 设置是否根据要求自动建表，create、create-drop、update、validate -->
+			<property name="hibernate.hbm2ddl.auto" value="update" />
+			<property name="hibernate.dialect" value="org.hibernate.dialect.MySQLDialect" />						
+			<!-- 启用JTA事务需要以下设置，否则在Jboss7上执行出错 -->
+			<property name="hibernate.transaction.manager_lookup_class" value="org.hibernate.transaction.JBossTransactionManagerLookup" />
+		</properties>
+	</persistence-unit>		
+</persistence>
