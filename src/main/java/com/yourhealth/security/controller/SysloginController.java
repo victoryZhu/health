@@ -136,6 +136,7 @@ public class SysloginController {
 			}
 			if(sm.getType()==SystemMenuDataModel.Type.MODULE){
 				menuString.append("<li><a id=\"").append(sm.getId()).append("\" href=\"javascript:void(0)\" onclick=\"clickMenu('" + request.getContextPath() + sm.getUrl()).append("')\" >").append(sm.getText()).append("</a></li>");
+				//menuString.append("<li><a id=\"").append(sm.getId()).append("\" href=\"javascript:void(0)\" onclick=\"clickMenu('" + sm.getUrl()).append("')\" >").append(sm.getText()).append("</a></li>");
 			}			
 		}
 		menuString.append("</ul>");

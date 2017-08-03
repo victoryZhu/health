@@ -132,7 +132,7 @@
 	</bean>
 	
 	<tx:annotation-driven transaction-manager="transactionManager" />
-	
+	<!-- 基础包 -->
   	<context:component-scan base-package="com.yourhealth.*.dao.impl, com.yourhealth.*.service.impl"/>  	
   	
   	<jpa:repositories base-package="com.yourhealth.*.dao" 

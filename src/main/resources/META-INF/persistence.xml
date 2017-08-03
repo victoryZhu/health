@@ -10,6 +10,7 @@
 	    <!-- 指定javax.persistence.spi.PersistenceProvider实现类 -->
 		<provider>org.hibernate.ejb.HibernatePersistence</provider>
 		<!-- 列出该应用需要访问的所有的Entity类, 也可以用 <mapping-file> 或<jar-file>元素来定义 --> 	
+		<!-- 下面是需要持久化的类 -->
 		<class>com.yourhealth.common.domain.DictionaryItem</class>
 		<class>com.yourhealth.common.domain.DictionaryValue</class>
 		<class>com.yourhealth.deploy.domain.Category</class>
@@ -23,6 +24,7 @@
 		<class>com.yourhealth.security.domain.RoleRyxx</class>
 		<class>com.yourhealth.security.domain.RyxxFunction</class>
 		<class>com.yourhealth.security.domain.SysLog</class>
+		<class>com.yourhealth.regmgmt.domain.MemberInfo</class>
 		
 		<!-- properties元素用于为特定JPA实现包配置属性 -->
 		<!-- 下面列举的是Hibernate JPA实现中可以配置的部分属性 -->		

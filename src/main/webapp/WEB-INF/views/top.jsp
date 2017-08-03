@@ -43,22 +43,27 @@ function changPassword(){
 </script> 
 
 <div class="logo">
-	<img src="<c:url value="/resources/image/selogo.gif"/>" >
+	<img src="<c:url value="/resources/image/top_logo.gif"/>" >
 </div> 
 <div class="rightdiv">
 	<div class="toprightmenu" >
 		<ul>
+            <li><a href="javascript:void(0)" onClick="changPassword(); return false;">修改密码</a></li>
+			<li>&nbsp;|&nbsp;</li>
 			<li><a href="<c:url value="/logout" />" >退出系统</a></li>
 			<li>&nbsp;|&nbsp;</li>
-			<li><a href="javascript:void(0)" onClick="changPassword(); return false;">修改密码</a></li>
-			<li>&nbsp;|&nbsp;</li>							
 		</ul>			
-	</div>			
-</div>
-<div class="centerdiv" >
+	</div>
 	<div class="userinfo">
 		${name}，欢迎您！<br><fmt:formatDate value="${now}" pattern="yyyy年MM月dd日" />
 	</div> 
-	<div class="gsinfo">${companyName}</div>
+	<%--<div class="gsinfo">${companyName}</div> --%>			
+</div>
+<div class="centerdiv">
+	<%-- <div class="userinfo">
+		${name}，欢迎您！<br><fmt:formatDate value="${now}" pattern="yyyy年MM月dd日" />
+	</div> 
+	<div class="gsinfo">${companyName}</div>--%>
+	<h1 style="color:white;text-align:center;FONT-FAMILY: 楷体">一  加  健  康  信  息  管  理  平  台</h1>
 </div>
 <table id="login_pwlist" style="width:100%"><tr><td></td></tr></table>

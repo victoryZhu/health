@@ -4,7 +4,7 @@
 
 <!-- 设置编辑权限变量值 -->
 <c:set value="" var="editFlag" ></c:set>
-<%-- <sec:authorize access="hasRole('ROLE_ADMIN')">
+<%--<sec:authorize access="hasRole('ROLE_ADMIN')">
 	<c:set value="true" var="editFlag" ></c:set>    
 </sec:authorize>--%>
 
@@ -116,19 +116,19 @@ function topedit(tableid){
 			 width:400,
              onclickSubmit:function(params,postdata){
                  postdata._method='PUT';  
-                 params.url="common/dictionary/value/"+postdata.id;
+                 params.url="/regmgmt/member_unit_info/value/"+postdata.id;
              },  
 			 onInitializeForm:onInitializeFormfunc 
 		 },
 		 {//新增
 			 width:400,
-			 url:"common/dictionary/value", 
+			 url:"/regmgmt/member_unit_info/value", 
 			 beforeSubmit:mxaddBeforeSubmit
 			 ,onInitializeForm:onInitializeFormfunc 
 		 }, 
 		 {//删除
 			onclickSubmit:function(params,postdata){ 					
-		    params.url="common/dictionary/value/"+$(this).jqGrid('getRowData',postdata).id; 
+		    params.url="/regmgmt/member_unit_info/value/"+$(this).jqGrid('getRowData',postdata).id; 
 		 }
 	});  
 
@@ -139,7 +139,7 @@ function topedit(tableid){
 	 
 	//主档grid定义	
 	$("#toplist").jqGrid({
-		url: '<c:url value="/common/dictionary/item"/>', 
+		url: '<c:url value="/regmgmt/member_unit_info/item"/>', 
 		datatype:"json",
 		colNames:['','代码','名称','备注'], 
 		colModel:[ //这里会根据index去解析jsonReader中root对象的属性，填充cell 		   		     
@@ -161,7 +161,7 @@ function topedit(tableid){
 			      cur_itemid=ids;
 		    
 		          //载入明细list   
-		          var mx_url = '<c:url value="/common/dictionary/value?id="/>' + ids;
+		          var mx_url = '<c:url value="/regmgmt/member_unit_info/value?id="/>' + ids;
                   $("#mxlist").jqGrid('setGridParam',{url:mx_url, datatype:'json'}).trigger('reloadGrid');                   
 			  }
 			},
@@ -196,7 +196,7 @@ function topedit(tableid){
 			  width:400,
 			  onclickSubmit:function(params,postdata){
             	  postdata._method='PUT'; 
-                  params.url="common/dictionary/item/"+$(this).jqGrid('getGridParam','selrow');
+                  params.url="/regmgmt/member_unit_info/item/"+$(this).jqGrid('getGridParam','selrow');
                },
               beforeInitData: topedit
 			  ,onInitializeForm: onInitializeFormfunc
@@ -232,7 +232,7 @@ function topedit(tableid){
 </div>
 <div id="tabs" class="chc_tabs">
 	<ul>
-		<li><a href="#tabs-1" >数据字典值</a></li>					
+		<li><a href="#tabs-1" >会员单位基本信息</a></li>					
 	</ul>
     <div id="tabs-1" > 
    		<table id="mxlist" style="width:100%"><tr><td/></tr></table>  

@@ -1,4 +1,4 @@
-package com.yourhealth.common.controller;
+package com.yourhealth.regmgmt.member_unit_info.controller;
  
 import java.util.HashMap;
 import java.util.Map;
@@ -38,8 +38,8 @@ import com.yourhealth.foundation.domain.SpecificationByJqgridFilters;
  *
  */
 @Controller
-@RequestMapping("/common/dictionary")
-public class DatadicController{
+@RequestMapping("/category/regmgmt/member_unit_info")
+public class DataMemberUnitInfoController{
 
 	@Autowired
 	private DictionaryItemService dictionaryItemService = null;
@@ -59,7 +59,7 @@ public class DatadicController{
 	public String main(HttpSession httpSession,
 			@RequestParam(value = "clear", defaultValue = "true") String clear,
 			Map<String, Object> model) {
-		return "common/dictionary/main";
+		return "category/regmgmt/member_unit_info/main";
 	}
 	
 	/**

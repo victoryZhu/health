@@ -25,7 +25,7 @@ $(document).ready(function () {
 	$('body').layout({ 	
 		north:{
      	  spacing_open:0,
-     	  size:46,
+     	  size:60,
      	  },         
         west:{
       	  spacing_open:8,
@@ -82,13 +82,13 @@ $(document).ready(function () {
 }); 
 </script>
  
-<title>系统管理</title>
+<title>一加健康信息管理平台</title>
 </head>
 <body>
 	<DIV class="ui-layout-center"></DIV>
 	<DIV class="ui-layout-north"></DIV>
 	<DIV class="ui-layout-south"></DIV>
 	<DIV class="ui-layout-east"></DIV>
-	<DIV class="ui-layout-west"></DIV> 
+	<DIV class="ui-layout-west"></DIV>
 </body>
 </html>

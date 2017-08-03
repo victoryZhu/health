@@ -19,7 +19,8 @@ function datePick(elem)
 
 	//主档grid定义	
 	 $("#toplist").jqGrid({
-			url: '<c:url value="/security/syslog/list" />', 
+			//url: '<c:url value="/security/syslog/list" />',
+			url: '<c:url value="/security/syslog" />', 
 			datatype:"json",
 			colNames:['','操作时间','操作类型','用户名','部门名称','姓名','IP地址'], 
 			colModel:[ //这里会根据index去解析jsonReader中root对象的属性，填充cell      

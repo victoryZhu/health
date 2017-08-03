@@ -12,7 +12,7 @@
 <meta http-equiv="Expires" CONTENT="0">
 <meta http-equiv="Cache-Control" CONTENT="no-cache">
 <meta http-equiv="Pragma" CONTENT="no-cache">
-<title>登录页面</title>
+<title>一加健康信息管理平台</title>
 <style>
 body {
 	WORD-BREAK: break-all;
@@ -57,49 +57,63 @@ error{
 				align="center" border="0">
 				<tr>
 					<td align="center" height="280" valign="middle">
-						<table width="500" height="50" align="center" cellSpacing="0"	cellPadding="0" border="0">
+						<%-- <table width="500" height="50" align="center" cellSpacing="0"	cellPadding="0" border="0">
 							<tr>								
 								<td align="right" height="50" valign="bottom"  style="font-size: 14px; FONT-FAMILY: 宋体">
 									${appName}&nbsp;
 								</td>								
 							</tr>
-						</table>
-						<table width="500" height="180" cellSpacing="0" cellPadding="10"
-							align="center" id="all_tab" border="0" bgcolor="#F2F4F6"
+						</table>--%>
+						<table width="500" height="280" cellSpacing="0" cellPadding="10"
+							align="center" id="all_tab" border="0" bgcolor="#C6E2FF"
 							style="vertical-align: middle; border: solid #d0d0d0; border-width: 1px 1px 1px 1px;">
-							<TR>
+							<%-- <TR>
 								<TD height="40" style="font-size: 22px; font-weight: bold;">Y<FONT
 									color="red">H</FONT></TD>
-							</TR>
+								</TR>--%>
 							<tr>
 								<td id="loginLabel" height="30"
-									style="font-size: 16px; color: #6C6C6C; font-weight: bold;">Log
-									in to ap.yourhealth.com/health</td>
+									style="font-size: 22px; color: #FFFFFF; font-weight: bold;font-family:楷体"><B>一加健康信息管理平台</B></td>
 							</tr>
 							<tr>
 								<td height="10"></td>
 							</tr>
-							<tr>
-								<td id="loginMain" height="30" style="font-size: 16px;"
-									valign="middle"><input type="text" name="username" placeholder="用户名" size="25" /> 
+							<tr align="center">
+								<%-- <td id="loginMain" height="30" style="font-size: 16px;"
+									valign="middle"><input type="text" name="username" placeholder="用户名" size="25" />
 									<input type="password" name="password" placeholder="密码" size="25" /> 
 									<input name="submit" type="submit"	value="登录系统" />
+								</td>--%>
+								<td id="loginMain" height="50" style="font-size: 20px;"
+									valign="middle"><input type="text" align="center" name="username" placeholder="用户名" size="25" />
 								</td>
 							</tr>
+							<tr align="center">
+							    <td id="loginMain1" height="50" style="font-size: 20px;"
+									valign="middle">
+									<input type="password" name="password" placeholder="密码" size="25" /> 
+							    </td>
+							</tr>
 							<c:if test="${param.error != null && SPRING_SECURITY_LAST_EXCEPTION != null}">		
-							<tr>
-								<td align="left" height="50"  valign="bottom"  class="error">
+							<tr >
+								<td align="center" height="50"  valign="bottom"  class="error">
 									<c:out	value="${SPRING_SECURITY_LAST_EXCEPTION.message}" />
 								</td>
 							</tr>																	
 							</c:if>
-							<c:if test="${param.logout != null}">
+							<tr align="center">
+							    <td id="loginMain2" height="50" style="font-size: 18px;"
+									valign="middle">
+									<input name="submit" type="submit"	value="登 录" />
+							    </td>
+							</tr>
+							<%--<c:if test="${param.logout != null}">
 							<tr>
 								<td align="left" height="50"  valign="bottom"  class="error">您已经退出系统！</td>	
 							</tr>		
-							</c:if>	
+							</c:if>--%>	
 						</table>
-						<table width="500" height="50" align="center" cellSpacing="0" cellPadding="0" border="0" bgcolor="#485156">
+						<%-- <table width="500" height="50" align="center" cellSpacing="0" cellPadding="0" border="0" bgcolor="#485156">
 							<tr>
 								<td align="center" valign="top" width="500">
 									<TABLE cellSpacing="0" cellPadding="0" width="100%"	align="center" height="50" border="0">
@@ -110,7 +124,7 @@ error{
 											<td height="20" align="center" style="color: white">&nbsp;&nbsp;屏幕分辨率：1024*768及以上&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;浏览器支持：IE、FireFox、Safari...</td>
 										</tr>
 										<tr>
-											<td height="20" align="center" style="color: white">&nbsp;&nbsp;&copy;&nbsp;2014&nbsp;CHBC&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;技术支持：有限公司
+											<td height="20" align="center" style="color: white">&nbsp;&nbsp;&copy;&nbsp;2017&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
 											</td>
 										</tr>
 										<tr>
@@ -119,12 +133,12 @@ error{
 									</table>
 								</td>
 							</tr>
-						</table>
+						</table>--%>
 					</td>
 				</tr>
-				<tr>
+				<%--<tr>
 					<td height="20%"></td>
-				</tr>
+				</tr> --%>
 			</TABLE>
 		</sf:form>
 	</div>

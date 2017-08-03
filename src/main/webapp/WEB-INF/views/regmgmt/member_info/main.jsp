@@ -1,36 +1,37 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8" pageEncoding="UTF-8"%> 
 <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core"%>
 <%@ taglib prefix="sec" uri="http://www.springframework.org/security/tags"%>  
+<%--会员个人基本信息页面--%>
 
 <!-- 设置编辑权限变量值 -->
 <c:set value="" var="editFlag" ></c:set>
-<sec:authorize access="hasRole('ROLE_ADMIN')">
+<sec:authorize access="hasRole('YH0010102')">
 	<c:set value="true" var="editFlag" ></c:set>    
 </sec:authorize>
 
 <script type="text/javascript"> 
-var cur_bmxxid="";//主档当前ID
-var goto_bmxxid;//修改记录后定位主档ID
-var goto_ryxxid;//修改记录后定位明细ID 
+var cur_memberid="";//主档当前ID
+var goto_memberid;//修改记录后定位主档ID
+//var goto_ryxxid;//修改记录后定位明细ID 
 
 //在jquery.jgGrid.custom.js中调用
 function getRecordIdAfterEdit(objid, res){ 
 	//objid为jqGrid列表的id，res为后台返回的JSON数据	
 	if(objid=="toplist") 
-		goto_bmxxid=res.key_id;
-    else if(objid=="mxlist") 
-        goto_ryxxid=res.key_id;
-	else if(objid=="pwlist") {  
+		goto_memberid=res.key_id;
+    //else if(objid=="mxlist") 
+    //    goto_ryxxid=res.key_id;
+	//else if(objid=="pwlist") {  
 		//修改密码后定位  	
-		goto_ryxxid = res.key_id; 
+		//goto_ryxxid = res.key_id; 
 		//修改密码后，因为内容没有发生变化（密码不显示），mxlist不需要重新载入
         //$("#mxlist").trigger('reloadGrid');
-    } 
+    //} 
 }
 
 //明细新增提交前赋值
 function mxaddBeforeSubmit(postdata, formid){
-	 postdata['bmxx.id']= cur_bmxxid;	 
+	 postdata['memberinfo.memberid']= cur_memberid;	 
  	 return [true,'']; 
 }
 
@@ -40,12 +41,18 @@ function topedit(tableid){
 			
 }
 
+//日期控件，用于编辑和查询
+function datePick(elem)
+ {
+    $(elem).datetimeCommon({showOn:'button',dtflag:'d'});     
+ };
+
 //人员编辑前
-function ryxxEdit(tableid,frmoper){	
+//function ryxxEdit(tableid,frmoper){	
 	//新增时有密码栏位，修改时没有
-	$(this).setColProp('password',{editable:frmoper=='add'?true:false}); 
-	$(this).setColProp('password1',{editable:frmoper=='add'?true:false});  	
-} 
+	//$(this).setColProp('password',{editable:frmoper=='add'?true:false}); 
+	//$(this).setColProp('password1',{editable:frmoper=='add'?true:false});  	
+//} 
 
 //编辑Form产生前初始函数
  function onInitializeFormfunc(formobj,frmoper){  
@@ -67,8 +74,8 @@ function ryxxEdit(tableid,frmoper){
 	 t_b_height_rownum(); 
 
 	 //明细grid定义			    		 
-	 $("#mxlist").jqGrid({ 
-		 colNames:['','员工编号','用户名','姓名', '性别','职称','员工状态','邮箱','用户密码','确认密码',''], //表头
+/*	 $("#mxlist").jqGrid({ 
+		 colNames:['','会员编号','用户名', '姓名', '性别','职称','员工状态','邮箱','用户密码','确认密码',''], //表头
 		 colModel:[ //这里会根据index去解析jsonReader中root对象的属性，填充cell
 		   		 {name:'id', index:'id', key:true, hidden:true, editable:true},
 			     {name:'rybh', index:'rybh', width:60, align:"center", sortable:true, editable:true, editoptions:{size:10}, editrules:{required:true}},  
@@ -125,14 +132,14 @@ function ryxxEdit(tableid,frmoper){
 		width:450,
         onclickSubmit:function(params,postdata){
         	postdata._method='PUT';  
-        	params.url="orgnization/setting/ryxx/"+postdata.id;
+        	params.url="regmgmt/member_info/ryxx/"+postdata.id;
         },
         beforeInitData: ryxxEdit,
 		onInitializeForm:onInitializeFormfunc 
 	 },
 	 {
 	    width:450,
-		url:"orgnization/setting/ryxx", 
+		url:"regmgmt/member_info/ryxx", 
 		beforeSubmit:mxaddBeforeSubmit,
 		beforeInitData: ryxxEdit,
 		onInitializeForm:onInitializeFormfunc 
@@ -144,7 +151,7 @@ function ryxxEdit(tableid,frmoper){
 	 //第一个参数为jqGrid的ID,
 	 //第二个参数为翻页功能条的ID
 	 //第三个参数为1表示此列表不需要模糊查询，不带此参数，表示默认需要模糊查询 
-	 jqGridButton("mxlist", "mxpager", 1);	
+	 //jqGridButton("mxlist", "mxpager", 1);	
 
 	 //自定义功能按钮-修改密码
 	 $("#mxlist").jqGrid('navButtonAdd','#mxlist_toppager_left',{caption:"修改密码", title:"修改密码",id:"xgmm_mxlist_top", buttonicon:'ui-icon-document',
@@ -154,11 +161,11 @@ function ryxxEdit(tableid,frmoper){
 			        width:400,				        
 			        onclickSubmit:function(params,postdata){			
 	  					postdata._method='PUT';		  					
-   						params.url='<c:url value="/orgnization/setting/ryxx/password/"/>'+$(this).getRowData($(this).jqGrid('getGridParam','selrow'))["ryxxid"];   		
+   						params.url='<c:url value="/regmgmt/member_info/ryxx/password/"/>'+$(this).getRowData($(this).jqGrid('getGridParam','selrow'))["ryxxid"];   		
    					} 
    			 }); 
 	     }
-     });  
+     }); 
 	   				 
 	 $("#pwlist").jqGrid({ 
 			data:[{ryxxid:'',password:'',password1:''}],
@@ -169,36 +176,45 @@ function ryxxEdit(tableid,frmoper){
 			       	 {name:'password1', index:'password1', editable:true,edittype:"password", editoptions:{size:24}, editrules:{required:true, custom:true, custom_func:rule_qryhkl}},
 		       	    ],		       	    
 			rowNum: 1 //每页记录数     		
-		}).closest(".ui-jqgrid-view").hide().closest(".ui-jqgrid").removeClass("ui-widget-content"); 	
+		}).closest(".ui-jqgrid-view").hide().closest(".ui-jqgrid").removeClass("ui-widget-content"); */	
 	 
 	 //主档grid定义	
 	 $("#toplist").jqGrid({
-			url: '<c:url value="/orgnization/setting/bmxx"/>', 
+			url: '<c:url value="/regmgmt/member_info/memberinfo"/>', 
 			datatype:"json",
-			colNames:['','部门编号','部门名称','状态'], 
+			colNames:['会员号','姓名','性别','出生日期','名族','会员类型','管理等级','职业','工作单位','工作部门','电话'], 
 			colModel:[ //这里会根据index去解析jsonReader中root对象的属性，填充cell      			         
-			         {name:'id', index:'id', key:true, hidden:true, editable:true}, 
-			         //不用KEY:TRUE，下面prmNames中不要定义ID,用, editable:true,edittype:'custom',editoptions:{custom_element:myelem,custom_value:myval}也可以			         {name:'bmbh', index:'bmbh', width:80, align:"center",sortable:true,editable:true,editoptions:{size:10}}, 
-			       	 {name:'bmmc', index:'bmmc', width:100, align:"center", sortable:true,editable:true,editoptions:{size:12},editrules:{required:true}},
-			       	 {name:'used', index:'used', width:80,align:"center", sortable:false, search:false, editable:true, editoptions:{value:'true:正常;false:注销',required:true}, formatter:'select', edittype:'select'}], 
+			         //不用KEY:TRUE，下面prmNames中不要定义ID,用, editable:true,edittype:'custom',editoptions:{custom_element:myelem,custom_value:myval}也可以			         {name:'memberid', index:'memberid', width:80, align:"center",sortable:true,editable:true,editoptions:{size:10}},
+			         {name:'name', index:'name', width:80, align:"center",sortable:true,editable:true,editoptions:{size:10}}, 
+			         {name:'sex', index:'sex', align:"center", width:30, sortable:true, editable:true, editoptions:{value:'M:男;F:女',required:true}, formatter:'select', edittype:'select'},
+			         {name:'birthdate', index:'birthdate', width:80, align:"center",sortable:true,editable:true,editoptions:{size:10}}, 
+			         {name:'race', index:'race', width:40, align:"center",sortable:true,editable:true,editoptions:{size:10}},
+			         {name:'type', index:'type', align:"center", width:60, sortable:true, editable:true, editoptions:{value:'1:重点会员1;2:重点会员2;3:普通会员;4:项目会员',required:true}, formatter:'select', edittype:'select'},
+			         {name:'grade', index:'grade', align:"center", width:60, sortable:true, editable:true, editoptions:{value:'1:一级;2:二级',required:true}, formatter:'select', edittype:'select'},  
+			       	 {name:'job', index:'job', width:100, align:"center", sortable:true,editable:true,editoptions:{size:12},editrules:{required:true}},
+			       	 {name:'org', index:'org', width:100, align:"center", sortable:true,editable:true,editoptions:{size:12},editrules:{required:true}},
+			       	 {name:'dept', index:'dept', width:100, align:"center", sortable:true,editable:true,editoptions:{size:12},editrules:{required:true}},
+			         //{name:'archiving', index:'archiving', width:100, align:"center",sortable:true,edittable:true,editoptions:{size:12},editrules:{required:true}}，
+			         {name:'phone', index:'phone', width:100, align:"center",sortable:true,edittable:true,editoptions:{size:12},editrules:{required:true}}],
 			height: topGridHeight,   
 			rowNum: numOfTopRow, //每页记录数  
 			pager: '#toppager', //分页标签divID    
-			sortname: "bmbh",
+			sortname: "memberid",
 			sortorder: "asc",            
-			caption:'部门信息', //显示查询结果表格标题     
+			caption:'会员个人基本信息', //显示查询结果表格标题     
 			hidegrid:false,  
 			prmNames: {rows:"size", sort:"sidx", order:"sord"},  //适应controller中Pageable解析更改（spring data）
-			onSelectRow:function(ids){ 
+			
+			/*onSelectRow:function(ids){ 
 		      if(ids){ 	
 		    	  //因为id 设有KEY,所以 $("#toplist").jqGrid('getGridParam','selrow')就是ID,但是如果没有勾选时，selrow为null;		
 		          cur_bmxxid=ids;		            
 
 		          //载入明细list
-		          var v_url='<c:url value="/orgnization/setting/ryxx?id="/>'+ids; 
+		          var v_url='<c:url value="/regmgmt/member_info/ryxx?id="/>'+ids; 
                   $("#mxlist").jqGrid('setGridParam',{url:v_url,datatype:'json'}).trigger('reloadGrid');                     
 			  }
-			},
+			},*/
 			gridComplete:function(){   		
 				$("#add_toplist_top").show();		
 													
@@ -207,11 +223,11 @@ function ryxxEdit(tableid,frmoper){
 		        	$("#add_mxlist_top").show();  
 
 		        	//主表list载入后定位到第一行或者新增、修改的那一行   
-		    	    if(goto_bmxxid==null) 
+		    	    if(goto_memberid==null) 
 			    	    $(this).jqGrid('setSelection',$(this).getDataIDs()[0]);
 		    	    else{
-		    		    $(this).jqGrid('setSelection',goto_bmxxid);
-		    		    goto_bmxxid=null;
+		    		    $(this).jqGrid('setSelection',goto_memberid);
+		    		    goto_memberid=null;
 		    	   }
 		        }else{
 		        	$("#edit_toplist_top").hide();
@@ -223,15 +239,18 @@ function ryxxEdit(tableid,frmoper){
 		        }
 			}			
 		}).navGrid('#toppager',{ //根据权限显示对应的功能按钮，后面还有查询和刷新两个按钮，没有设置默认总是显示
-		    edit:Boolean("${editFlag}"),
-		    add:Boolean("${editFlag}"),
-		    del:false
+		    edit:true, //Boolean("${editFlag}"),
+		    add:true, //Boolean("${editFlag}"),
+		    del:true,
+		    refresh:true,
+		    search:true,
+		    view:true
 		},
 		{//修改窗口相关属性  
 		    width:400,
 			onclickSubmit:function(params,postdata){
               postdata._method='PUT'; 
-              params.url="orgnization/setting/bmxx/"+$(this).jqGrid('getGridParam','selrow');
+              params.url="regmgmt/member_info/memberinfo/"+$(this).jqGrid('getGridParam','selrow');
             },
             beforeInitData: topedit,
             onInitializeForm: onInitializeFormfunc
@@ -241,15 +260,22 @@ function ryxxEdit(tableid,frmoper){
 		    width:400,
 			onclickSubmit:function(params,postdata){
 	          postdata._method='POST'; 
-	          params.url="orgnization/setting/bmxx";
+	          params.url="regmgmt/member_info/memberinfo";
 	        },
-	        beforeInitData: topedit
-			  ,onInitializeForm: onInitializeFormfunc  			   
+	        beforeInitData: topedit,
+	        onInitializeForm: onInitializeFormfunc  			   
 		},
 		{//删除窗口相关属性 	
-				    			 
+			width:400,
+			onclickSubmit:function(params,postdata){
+              postdata._method='DELETE'; 
+              params.url="regmgmt/member_info/memberinfo";
+              //params.url="regmgmt/member_info/memberinfo/"+$(this).jqGrid('getGridParam','selrow');
+            },
+            beforeInitData: topedit,
+            onInitializeForm: onInitializeFormfunc	    			 
 		} 
-	 ); 
+	 ).navButtonAdd("#toppager",{caption: "测试"}); 
 	 jqGridButton("toplist","toppager",1); 
 
 	 $("#tabs").tabs( //默认jquery处理显示tab对应的div层，各个div层的内容在之前已经处理好
@@ -271,15 +297,15 @@ function ryxxEdit(tableid,frmoper){
 	<table id="toplist" style="width:100%"><tr><td/></tr></table>
     <div id="toppager"></div>     
 </div>
-<div id="tabs" class="chc_tabs">
+<%--<div id="tabs" class="chc_tabs">
 	<ul>
-		<li><a href="#tabs-1" >人员信息</a></li>					
+		<li><a href="#tabs-1" >会员个人基本信息</a></li>					
 	</ul>
     <div id="tabs-1" > 
    		<table id="mxlist" style="width:100%"><tr><td/></tr></table>  
 	 	<div id="mxpager"></div>	 
-	 	<table id="pwlist" style="width:100%"><tr><td></td></tr></table>	
+	 	<table id="pwlist" style="width:100%"><tr><td></td></tr></table> 	
 	</div>    
 	<div id="tabs-2" style="vertical-align:middle;"> 	
 	</div> 	    	    
-</div>  	
+</div>--%>  	
